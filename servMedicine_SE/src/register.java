@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,14 +36,24 @@ public class register extends HttpServlet {
 		User u=new User(Fname,Lname,email,phone,pass,role);
 		
 		mycontroll db=new mycontroll();
-
-        int a= db.insert(u);
-	
+		
+		
+		int a= db.insert(u);
+		
         if(a>0)
-	    	out.print("Data Inserted!<br>");
-	    else
-	    	out.print("Data Not Inserted!<br>");
+        {	
+        RequestDispatcher rd=request.getRequestDispatcher("login.html");
+		rd.forward(request, response);
+		out.print("<p>Successfully Registered!</p>");
+        }
         
+	    else
+	    {
+		out.print("Not Registered!");
+	    }
+        
+       
+		
         
         
 }
