@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.control2;
 
-import controller.mycontroll;
 import model.User;
 
 
@@ -35,7 +35,7 @@ public class register extends HttpServlet {
         out.print(Fname );
 		User u=new User(Fname,Lname,email,phone,pass,role);
 		
-		mycontroll db=new mycontroll();
+		control2 db=new control2();
 		
 		
 		int a= db.insert(u);

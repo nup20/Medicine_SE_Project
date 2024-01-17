@@ -43,17 +43,10 @@
     body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
+        
     }
 
-    .hero-image {
-        background-image: url("medbg1.jpg");
-        background-color: #cccccc;
-        height: 500px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative;
-    }
+   
 
     .hero-text {
         text-align: center;
@@ -74,35 +67,27 @@ text-align: center;
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="Aboutus.html">About</a></li>
-        <li><a href="login.html">Login</a></li>
+        <li><a href="medicinedata">View Medicine</a></li>
+        <li><a href="Userlist">View User</a></li>
         <li>
             <a href="register.html">
-                <span class="special-button">Register</span>
+                <span class="special-button">Logout</span>
             </a>
         </li>
         
     </ul>
-    <div class="hero-image">
-       <form action="loginserv" method="get">
+  
+       <form action="adminserv" method="get">
           <div class="center">
-    <b>::login page::</b><br>
-      Username::<input type="text" name="uname"><br>
-      Password::<input type="text" name="upass"><br>
-       Role::<br>
-             <input type="radio"  name="role" value="User">
-             <label for="html">User</label><br>
-             <input type="radio"  name="role" value="Admin">
-             <label for="css">Admin</label><br>
+    <b>::ADD MEDICINE::</b><br>
+      company::<input type="text" name="company"><br>
+      medicine::<input type="text" name="medicine"><br>
+     
         <input type="submit" ><br><br>
-
-       New Here? <a href="register.html">Sign up</a>
-
-</div>
-
-
-</form>
-    </div>
-    <p>Page content..</p>
+        </div>
+        </form>
+   
+   
 </body>
 
 </html>

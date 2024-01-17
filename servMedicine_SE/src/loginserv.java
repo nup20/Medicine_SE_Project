@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.mycontroll;
+import controller.control2;
 
 
 
@@ -23,38 +23,53 @@ public class loginserv extends HttpServlet {
 		
 		String rname=request.getParameter("uname");
 		String rpass=request.getParameter("upass");
+		String role1="Admin";
 		
-		mycontroll db=new mycontroll();
+		control2 db=new control2();
 		
-	        boolean a;
+	       
+		
+		 boolean a;
+		 boolean aa;
+		try {
+			a = db.checkUser(rname,rpass);
+		
+			if(a)
+			{
+				out.print("User  found<br>");
+				
+				 aa = db.getUserRole(role1);
+				 out.print(aa);
+				if (aa) {
+			       
+			        if (!"Admin".equals(role1)) {
+			            out.print("Userget found<br>");
+			            out.print("Visit Profile");
+			            request.getRequestDispatcher("userserv").forward(request, response);
+			           
+			         }
+			        else if ("Admin".equals(role1)) {
+			            out.print("Hello Admin!");
+			            request.getRequestDispatcher("profile.html").forward(request, response);
+			            
+			        }
+			}
 			
-				a = db.checkUser(rname,rpass);
-				if(a)
-				{
-					out.print("Visit Profile");
-					out.print("hello");
-					
-				}
-				else
-				{
-					out.print("User Not found<br>");
-					out.print(a);
-					out.print(db);
-				}
+			}
+			else
+			{
+				out.print("User Not found<br>");
+				
+				out.print(db);
+			}
+		
+		} catch (ClassNotFoundException | SQLException e) {
 			
-	
-			
-	        
-	        
-	        
-	        
-	        
+			e.printStackTrace();
 		}
-		
-          
-        		
-	
-
+				
+	      
+		}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
