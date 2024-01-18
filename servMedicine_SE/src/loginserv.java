@@ -23,14 +23,17 @@ public class loginserv extends HttpServlet {
 		
 		String rname=request.getParameter("uname");
 		String rpass=request.getParameter("upass");
-		String role1="Admin";
+	    
+	    
 		
 		control2 db=new control2();
 		
+		
+		String aa;
 	       
 		
 		 boolean a;
-		 boolean aa;
+		
 		try {
 			a = db.checkUser(rname,rpass);
 		
@@ -38,22 +41,20 @@ public class loginserv extends HttpServlet {
 			{
 				out.print("User  found<br>");
 				
-				 aa = db.getUserRole(role1);
+				  aa = db.getUserRole(rname);
+				 
+				 
 				 out.print(aa);
-				if (aa) {
-			       
-			        if (!"Admin".equals(role1)) {
-			            out.print("Userget found<br>");
-			            out.print("Visit Profile");
-			            request.getRequestDispatcher("userserv").forward(request, response);
-			           
-			         }
-			        else if ("Admin".equals(role1)) {
-			            out.print("Hello Admin!");
-			            request.getRequestDispatcher("profile.html").forward(request, response);
-			            
-			        }
-			}
+				 if (aa != null) {
+					    if (!"Admin".equals(aa)) {
+					    	 out.print("Userget found<br>");
+					            out.print("Visit Profile");
+					            request.getRequestDispatcher("userprofile.html").forward(request, response);
+					    } else if ("Admin".equals(aa)) {
+					    	out.print("Hello Admin!");
+				            request.getRequestDispatcher("profile.html").forward(request, response);
+					    }
+					}
 			
 			}
 			else

@@ -31,7 +31,8 @@ public class storeddata extends HttpServlet {
    		
    		
 		String company=request.getParameter("company");
-		String medicine=request.getParameter("medicine");
+		String medicine=request.getParameter(""
+				+ "medicine");
 		
 		
 		User2 u=new User2(company,medicine);
@@ -58,18 +59,24 @@ public class storeddata extends HttpServlet {
 		out.print("<div class='divped'>");
 		out.print("<table class='table table-condensed' >");
 		out.print("<h1><center>Available Medicine</center></h1>");
-		out.print("<thead><tr><th>Sr.No.</th><th>company</th><th>medicine</th></tr></thead>");
+		out.print("<thead><tr><th>Sr.No.</th><th>company</th><th>medicine</th><th>Update</th></th><th>Delete</th></tr></thead>");
+
+		out.print("<tbody>");
+
+		for (User2 x : ul) {
+		    out.println("<tr>");
+		    out.println("<td>" + x.getaid2() + "</td>");
+		    out.println("<td>" + x.getcompany2() + "</td>");
+		    out.println("<td>" + x.getmedicine2() + "</td>");
+		    
 		
-		
-		out.print(" <tbody>");
-		
-		for(User2 x:ul)
-		{
-			out.println(" <tr><td>"+x.getaid2()+"</td><td>"+x.getcompany2()+"</td><td>"+x.getmedicine2()+"</td><tr>");
+		    out.println("<td><a href='Updateserv?id=" + x.getaid2() + "'>Update</a></td>");
+		    out.println("<td><a href='Deleteserv?id=" + x.getaid2() + "'>Delete</a></td>");
+		    
+		    out.println("</tr>");
 		}
-		
-		out.print("</tbody>");	
-		out.print("</table>");	
+
+		out.print("</tbody>");out.print("</table>");	
 		
 		out.print("<a href='regServ?page=1'>1</a> ");  
 	    out.print("<a href='regServ?page=2'>2</a> ");  

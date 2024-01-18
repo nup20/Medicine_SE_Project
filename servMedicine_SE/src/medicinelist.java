@@ -11,17 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.control2;
-import model.User;
+import model.User2;
 
 
-
-@WebServlet("/Userlist")
-public class Userlist extends HttpServlet {
+@WebServlet("/medicinelist")
+public class medicinelist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+   
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		
@@ -33,22 +32,16 @@ public class Userlist extends HttpServlet {
    		
    		
    		
-		String Fname=request.getParameter("rname");
-		String Lname=request.getParameter("rsirname");
-		String email=request.getParameter("remail");
-		String phone=request.getParameter("rphone");
-		String pass=request.getParameter("rpass");
-		String role=request.getParameter("role");
-       
+		String company=request.getParameter("company");
+		String medicine=request.getParameter( "medicine");
 		
 		
-		User u=new User(Fname,Lname,email,phone,pass,role);
-		control2 db=new control2();
+		User2 u=new User2(company,medicine);
+		control2 db2=new control2();
 		
-            int a= db.insert(u);
+            int a= db2.insert_med(u);
 		
         
-            
          
         int pageId = 1;
 		if(pageId==1)
@@ -62,30 +55,29 @@ public class Userlist extends HttpServlet {
 		
 		
 		
-		ArrayList<User>	ull=db.show1(pageId,5);
+		ArrayList<User2>	ul=db2.show(pageId,5);
 		
 		out.print("<div class='divped'>");
 		out.print("<table class='table table-condensed' >");
-		out.print("<h1><center>User List</center></h1>");
-		out.print("<thead><tr><th>Sr.No.</th><th>First Name</th><th>Last Name</th><th>Email</th><th>phone no</th><th>Password</th><th>role</th></tr></thead>");
-		
-		
-		out.print(" <tbody>");
-		
-		
-		
-		for(User x:ull) {
-			if("User".equals(x.getrole()))
-			{
-				out.println("<tr><td>"+x.getUid()+"</td><td>"+x.getFname()+"</td><td>"+x.getLname()+"</td><td>"+x.getemail()+"</td><td>"+x.getphone()+"</td><td>"+x.getpassword()+"</td><td>"+x.getrole()+"</td></tr>");
-				
-			}
-			
-		    	}
+		out.print("<h1><center>Available Medicine</center></h1>");
+		out.print("<thead><tr><th>Sr.No.</th><th>company</th><th>medicine</th><th>Book Medicine</th></tr></thead>");
 
+		out.print("<tbody>");
+
+		for (User2 x : ul) {
+		    out.println("<tr>");
+		    out.println("<td>" + x.getaid2() + "</td>");
+		    out.println("<td>" + x.getcompany2() + "</td>");
+		    out.println("<td>" + x.getmedicine2() + "</td>");
+		    
 		
-		out.print("</tbody>");	
-		out.print("</table>");	
+		    out.println("<td><a href='editserv?id=" + x.getaid2() + "'>book</a></td>");
+		   
+		    
+		    out.println("</tr>");
+		}
+
+		out.print("</tbody>");out.print("</table>");	
 		
 		out.print("<a href='regServ?page=1'>1</a> ");  
 	    out.print("<a href='regServ?page=2'>2</a> ");  
@@ -93,6 +85,7 @@ public class Userlist extends HttpServlet {
 	    out.print("<a href='regServ?page=4'>4</a> "); 
 		
 		out.print("</div>");
+		
 		
 	
 	}

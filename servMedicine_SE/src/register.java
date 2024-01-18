@@ -32,7 +32,7 @@ public class register extends HttpServlet {
 		String phone=request.getParameter("rphone");
 		String pass=request.getParameter("rpass");
 		String role=request.getParameter("role");
-        out.print(Fname );
+    
 		User u=new User(Fname,Lname,email,phone,pass,role);
 		
 		control2 db=new control2();

@@ -141,20 +141,72 @@ public class control2 {
 	    return ull;
 	}
 
-	public boolean getUserRole(String role1) throws ClassNotFoundException, SQLException {
-		boolean a = false;
+//	public boolean getUserRole(String role1) throws ClassNotFoundException, SQLException {
+//		String aa;
+//	    Connection con = getConnect();
+//	    String sql = "SELECT * FROM  tbl1 where role=?";
+//	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+//	        ps.setString(1, role1);
+//	       
+//
+//	        try (ResultSet rs = ps.executeQuery()) {
+//	            aa = rs.next();
+//	        }
+//	    } finally {
+//	        con.close();
+//	    }
+//	    return aa;
+//	}
+	
+	
+	public String getUserRole(String rname) throws ClassNotFoundException, SQLException {
+	    String aa = null;
 	    Connection con = getConnect();
-	    String sql = "SELECT * FROM  tbl1 where role=?";
+	    String sql = "SELECT role FROM tbl1 WHERE fname=?";
+	    
 	    try (PreparedStatement ps = con.prepareStatement(sql)) {
-	        ps.setString(1, role1);
-	       
+	        ps.setString(1, rname);
 
 	        try (ResultSet rs = ps.executeQuery()) {
-	            a = rs.next();
+	            if (rs.next()) {
+	                aa = rs.getString("role");
+	            }
 	        }
 	    } finally {
 	        con.close();
 	    }
-	    return a;
+
+	    return aa;
 	}
+
+
+	
+	
+	public int deletUser(int aid2) throws ClassNotFoundException, SQLException {
+		Connection con=getConnect();     
+		//step 3
+		PreparedStatement st=con.prepareStatement("delete from addmed_2tbl where aid=?");
+		st.setInt(1, aid2);
+				
+		System.out.println("Step 3");
+		        
+		//step4
+		int a=st.executeUpdate();
+		System.out.println("Step 4");
+		
+		//step 5
+		con.close();
+		System.out.println("Step 5");
+		return a;
 }
+	
+	
+	
+	
+	
+		
+	}
+	
+
+
+
