@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import model.User;
 import model.User2;
+import model.booking;
 
 public class control2 {
     Connection getConnect() throws ClassNotFoundException, SQLException {
@@ -27,10 +28,11 @@ public class control2 {
         int a = 0;
         try {
             Connection con = getConnect();
-            PreparedStatement ps = con.prepareStatement("insert into addmed_2tbl(company, medicine) values(?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into addmed_2tbl(company, medicine,quantity) values(?,?,?)");
 
             ps.setString(1, u.getcompany2());
             ps.setString(2, u.getmedicine2());
+            ps.setString(3, u.getquantity2());
 
             a = ps.executeUpdate();
 
@@ -41,6 +43,9 @@ public class control2 {
         }
         return a;
     }
+    
+    
+    
 
     public ArrayList<User2> show(int start, int total) {
         ArrayList<User2> ul = new ArrayList<>();
@@ -57,6 +62,7 @@ public class control2 {
                 u.setaid(rs.getInt(1));
                 u.setcompany2(rs.getString(2));
                 u.setmedicine2(rs.getString(3));
+                u.setquantity2(rs.getString(4));
 
                 ul.add(u);
             }
@@ -184,25 +190,69 @@ public class control2 {
 	
 	public int deletUser(int aid2) throws ClassNotFoundException, SQLException {
 		Connection con=getConnect();     
-		//step 3
+		
 		PreparedStatement st=con.prepareStatement("delete from addmed_2tbl where aid=?");
 		st.setInt(1, aid2);
-				
-		System.out.println("Step 3");
-		        
-		//step4
 		int a=st.executeUpdate();
-		System.out.println("Step 4");
-		
-		//step 5
 		con.close();
-		System.out.println("Step 5");
+		
 		return a;
 }
 	
 	
 	
-	
+	 public int booking(booking u) {
+	        int a = 0;
+	        try {
+	            Connection con = getConnect();
+	            PreparedStatement ps = con.prepareStatement("insert into book_tbl(company, medicine,name,phone,quantity) values(?,?,?,?,?)");
+
+	            ps.setString(1, u.getcompany3());
+	            ps.setString(2, u.getmedicine3());
+	            ps.setString(3, u.getname3());
+	            ps.setString(4, u.getphone3());
+	            ps.setString(5, u.getquantity3());
+	          
+
+	            a = ps.executeUpdate();
+
+	            con.close();
+
+	        } catch (ClassNotFoundException | SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return a;
+	    }
+	 
+	 
+	 public ArrayList<booking> show3(int start, int total) {
+	        ArrayList<booking> ul = new ArrayList<>();
+
+	        try {
+	            Connection con = getConnect();
+
+	            Statement st = con.createStatement();
+
+	            ResultSet rs = st.executeQuery("select * from book_tbl limit " + (start - 1) + ", " + total + "");
+
+	            while (rs.next()) {
+	                booking u  = new booking();
+	                u.setid(rs.getInt(1));
+	                u.setcompany3(rs.getString(2));
+	                u.setmedicine3(rs.getString(3));
+	                u.setname3(rs.getString(4));
+	                u.setphone3(rs.getString(5));
+	                u.setquantity3(rs.getString(6));
+
+	                ul.add(u);
+	            }
+
+	        } catch (ClassNotFoundException | SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return ul;
+	    }
 	
 		
 	}

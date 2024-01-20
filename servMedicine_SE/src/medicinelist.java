@@ -34,9 +34,10 @@ public class medicinelist extends HttpServlet {
    		
 		String company=request.getParameter("company");
 		String medicine=request.getParameter( "medicine");
+		String quantity=request.getParameter( "quantity");
 		
 		
-		User2 u=new User2(company,medicine);
+		User2 u=new User2(company,medicine,quantity);
 		control2 db2=new control2();
 		
             int a= db2.insert_med(u);
@@ -60,7 +61,7 @@ public class medicinelist extends HttpServlet {
 		out.print("<div class='divped'>");
 		out.print("<table class='table table-condensed' >");
 		out.print("<h1><center>Available Medicine</center></h1>");
-		out.print("<thead><tr><th>Sr.No.</th><th>company</th><th>medicine</th><th>Book Medicine</th></tr></thead>");
+		out.print("<thead><tr><th>Sr.No.</th><th>company</th><th>medicine</th><th>Quantity</th><th>Book Medicine</th></tr></thead>");
 
 		out.print("<tbody>");
 
@@ -69,11 +70,13 @@ public class medicinelist extends HttpServlet {
 		    out.println("<td>" + x.getaid2() + "</td>");
 		    out.println("<td>" + x.getcompany2() + "</td>");
 		    out.println("<td>" + x.getmedicine2() + "</td>");
+		    out.println("<td>" + x.getquantity2() + "</td>");
 		    
 		
-		    out.println("<td><a href='editserv?id=" + x.getaid2() + "'>book</a></td>");
+//		    out.println("<td><a href='Bookmedicine?id=" + x.getaid2() + "'>book</a></td>");
 		   
-		    
+		    out.println("<td><a href='Bookmedicine?company=" + x.getcompany2() + "&medicine=" + x.getmedicine2() + "&quantity=" + x.getquantity2() + "'>book</a></td>");
+
 		    out.println("</tr>");
 		}
 

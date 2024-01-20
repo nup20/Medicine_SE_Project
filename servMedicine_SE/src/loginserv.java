@@ -57,12 +57,10 @@ public class loginserv extends HttpServlet {
 					}
 			
 			}
-			else
-			{
-				out.print("User Not found<br>");
-				
-				out.print(db);
-			}
+			else{  
+	            out.print("sorry, username or password error!");  
+	            request.getRequestDispatcher("login.html").include(request, response);  
+	        } 
 		
 		} catch (ClassNotFoundException | SQLException e) {
 			

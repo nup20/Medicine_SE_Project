@@ -12,13 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.control2;
 import model.User2;
+import model.booking;
 
 
-@WebServlet(name = "medicinedata", urlPatterns = { "/medicinedata" })
-public class storeddata extends HttpServlet {
-	
+@WebServlet("/bookinghistory")
+public class bookinghistory extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		
@@ -28,19 +31,16 @@ public class storeddata extends HttpServlet {
 		out.print("<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
 	
    		
-   		
-   		
 		String company=request.getParameter("company");
-		String medicine=request.getParameter( "medicine");
-		String quantity=request.getParameter( "quantity");
+		String medicine=request.getParameter("medicine");
+		String name=request.getParameter("name");
+		String phone=request.getParameter("phone");
+		String quantity=request.getParameter("quantity");
 		
-		
-		User2 u=new User2(company,medicine,quantity);
+		booking u=new booking(company,medicine,name,phone,quantity);
 		control2 db2=new control2();
 		
-            int a= db2.insert_med(u);
-		
-        
+        int a= db2.booking(u);
          
         int pageId = 1;
 		if(pageId==1)
@@ -54,25 +54,26 @@ public class storeddata extends HttpServlet {
 		
 		
 		
-		ArrayList<User2>	ul=db2.show(pageId,5);
+	        ArrayList<booking> ul = db2.show3 (pageId,5);
+		
 		
 		out.print("<div class='divped'>");
 		out.print("<table class='table table-condensed' >");
 		out.print("<h1><center>Available Medicine</center></h1>");
-		out.print("<thead><tr><th>Sr.No.</th><th>Company</th><th>Medicine</th><th>Quantity</th><th>Update</th></th><th>Delete</th></tr></thead>");
+		out.print("<thead><tr><th>Sr.No.</th><th>company</th><th>medicine</th><th>Name</th><th>Phone</th><th>Quantity</th></tr></thead>");
 
 		out.print("<tbody>");
 
-		for (User2 x : ul) {
+		for (booking x : ul) {
 		    out.println("<tr>");
-		    out.println("<td>" + x.getaid2() + "</td>");
-		    out.println("<td>" + x.getcompany2() + "</td>");
-		    out.println("<td>" + x.getmedicine2() + "</td>");
-		    out.println("<td>" + x.getquantity2() + "</td>");
+		    out.println("<td>" + x.getid() + "</td>");
+		    out.println("<td>" + x.getcompany3() + "</td>");
+		    out.println("<td>" + x.getmedicine3() + "</td>");
+		    out.println("<td>" + x.getname3() + "</td>");
+		    out.println("<td>" + x.getphone3() + "</td>");
+		    out.println("<td>" + x.getquantity3() + "</td>");
 		    
-		
-		    out.println("<td><a href='Updateserv?id=" + x.getaid2() + "'>Update</a></td>");
-		    out.println("<td><a href='Deleteserv?id=" + x.getaid2() + "'>Delete</a></td>");
+		   
 		    
 		    out.println("</tr>");
 		}
@@ -85,9 +86,6 @@ public class storeddata extends HttpServlet {
 	    out.print("<a href='regServ?page=4'>4</a> "); 
 		
 		out.print("</div>");
-		
-		
-		
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

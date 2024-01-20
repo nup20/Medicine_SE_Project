@@ -5,21 +5,24 @@ public class User2 {
 		private int aid2;
 		private String company2;
 		private String medicine2;
+		private String quantity2;
 		
 		public	User2(){
 			super();
 		}
 	
-	public User2(String company2, String medicine2) {
+	public User2(String company2, String medicine2,String quantity2) {
 		
 		this.company2= company2;
 		this.medicine2 = medicine2;
+		this.quantity2 = quantity2;
 	}
 
-	public User2(int aid2,String company2, String medicine2) {
+	public User2(int aid2,String company2, String medicine2,String quantity2) {
 		this.aid2= aid2;
 		this.company2= company2;
 		this.medicine2 = medicine2;
+		this.quantity2=quantity2;
 	}
 	
 	
@@ -45,12 +48,24 @@ public class User2 {
 	public void setmedicine2(String medicine2) {
 		this.medicine2 =medicine2;
 	}
+	
+	public String getquantity2() {
+		return quantity2;
+	}
+	public void setquantity2(String quantity2) {
+		this.quantity2 =quantity2;
+	}
 
 	@Override
 	public String toString() {
-		return "User2 [aid2=" + aid2 + ", company2=" + company2 + ", medicine2=" + medicine2 + "]";
+		return "User2 [aid2=" + aid2 + ", company2=" + company2 + ", medicine2=" + medicine2 + ", quantity2="
+				+ quantity2 + "]";
 	}
 
+	
+
+	
+	
 	
 
 	

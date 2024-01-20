@@ -27,11 +27,11 @@ public class Deleteserv extends HttpServlet {
 		PrintWriter out= response.getWriter();
 		
 	
-		String aid2Parameter = request.getParameter("id");
+		String aid2P = request.getParameter("id");
 		
-		out.print(aid2Parameter);
-		if (aid2Parameter != null && !aid2Parameter.isEmpty()) {
-		    int aid2 = Integer.parseInt(aid2Parameter);
+		out.print(aid2P);
+		if (aid2P != null && !aid2P.isEmpty()) {
+		    int aid2 = Integer.parseInt(aid2P);
 
 		    control2 db2 = new control2();
 		    int a;
@@ -41,11 +41,10 @@ public class Deleteserv extends HttpServlet {
 		            request.getRequestDispatcher("medicinedata").forward(request, response);
 		        }
 		    } catch (ClassNotFoundException | SQLException e) {
-		        e.printStackTrace();  // You may want to log the exception or handle it appropriately.
+		        e.printStackTrace();  
 		    }
 		} else {
-		    // Handle the case where "aid2" parameter is not provided or is empty
-		    // You might want to redirect the user to an error page or display an error message.
+		    out.print("aid2 is empty");
 		}
 
 		
